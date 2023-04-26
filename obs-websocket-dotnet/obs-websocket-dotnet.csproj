@@ -32,15 +32,19 @@ What's new in v5.0.0.3
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-	  <PackageReference Include="Websocket.Client" Version="4.4.43" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Include="..\LICENSE">
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Newtonsoft.Json">
+	    <HintPath>..\..\..\..\Program Files (x86)\SimHub\Newtonsoft.Json.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Websocket.Client">
+	    <HintPath>..\..\websocket-client\src\Websocket.Client\bin\Release\netstandard2.0\Websocket.Client.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>

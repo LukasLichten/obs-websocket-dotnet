@@ -97,15 +97,39 @@ namespace OBSWebsocketDotNet
                 Disconnect();
             }
 
-            wsConnection = new WebsocketClient(new Uri(url));
-            wsConnection.IsReconnectionEnabled = false;
-            wsConnection.ReconnectTimeout = null;
-            wsConnection.ErrorReconnectTimeout = null;
-            wsConnection.MessageReceived.Subscribe(m => Task.Run(() => WebsocketMessageHandler(this, m)));
-            wsConnection.DisconnectionHappened.Subscribe(d => Task.Run(() => OnWebsocketDisconnect(this, d)));
+            wsConnection = new WebsocketClient(new Uri(url)) { IsReconnectionEnabled = false, ReconnectTimeout = TimeSpan.FromSeconds(5), ErrorReconnectTimeout = TimeSpan.FromSeconds(5) };
+            wsConnection.MessageReceived.Subscribe(new MessageHandler<ResponseMessage>(WebsocketMessageHandler));
+            wsConnection.DisconnectionHappened.Subscribe(new MessageHandler<DisconnectionInfo>(OnWebsocketDisconnect));
 
             connectionPassword = password;
             wsConnection.StartOrFail();
+        }
+
+        class MessageHandler<T> : IObserver<T>
+        {
+            public delegate void Handler(object sender, T e);
+
+            public Handler Methode { get; set; }
+
+            public MessageHandler(Handler methode)
+            {
+                Methode = methode;
+            }
+
+            public void OnCompleted()
+            {
+
+            }
+
+            public void OnError(Exception error)
+            {
+
+            }
+
+            public void OnNext(T value)
+            {
+                Methode.Invoke(this, value);
+            }
         }
 
         /// <summary>
