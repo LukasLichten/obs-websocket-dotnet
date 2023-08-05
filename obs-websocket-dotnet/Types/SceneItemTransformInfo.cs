@@ -13,7 +13,7 @@ namespace OBSWebsocketDotNet.Types
         /// Alignment of the item
         /// </summary>
         [JsonProperty(PropertyName = "alignment")]
-        public int Alignnment { set; get; }
+        public Aligenment Alignnment { set; get; }
 
         /// <summary>
         /// The point on the scene item that the item is manipulated from
@@ -131,5 +131,18 @@ namespace OBSWebsocketDotNet.Types
         /// Default Constructor for deserialization
         /// </summary>
         public SceneItemTransformInfo() { }
+    }
+
+    public enum Aligenment
+    {
+        Center = 0,
+        CenterLeft = 1,
+        CenterRight = 2,
+        TopCenter = 4,
+        TopLeft = 5,
+        TopRight = 6,
+        BottomCenter = 8,
+        BottomLeft = 9,
+        BottomRight = 10,
     }
 }

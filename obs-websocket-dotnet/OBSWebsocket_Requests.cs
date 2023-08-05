@@ -2152,5 +2152,34 @@ namespace OBSWebsocketDotNet
 
             SendRequest(nameof(OpenVideoMixProjector), request);
         }
+
+        /// <summary>
+        /// Used to change the EventSubscription (default is set after authentication to all)<br/>
+        /// All however does not include all:<br/>
+        /// It does not include InputVolumeMeters, InputActiveStateChanged, InputShowStateChanged, SceneItemTransformChanged.<br/>
+        /// <br/>
+        /// If you want to subscribe to these additionally make sure to include All also in your EventSubscriptions array,<br/>
+        /// else you will end up with only the additional events triggering.<br/>
+        /// Although you could use this to reduce load on the websocket when you don't use the event.<br/>
+        /// <br/>
+        /// Calling this function will cause Connected Event to be triggered.<br/>
+        /// </summary>
+        /// <param name="eventSubscriptions">The Events to subscribe to</param>
+        public void ReIdentify(EventSubscription[] eventSubscriptions)
+        {
+            int sub = 0;
+            foreach(var subscription in eventSubscriptions)
+            {
+                sub += (int)subscription;
+            }
+
+
+            var request = new JObject
+            {
+                { nameof(eventSubscriptions), sub }
+            };
+
+            SendRequest(Communication.MessageTypes.ReIdentify, null, request, false);
+        }
     }
 }

@@ -11,9 +11,10 @@ namespace OBSWebsocketDotNet.Types.Events
         /// Name of the input
         /// </summary>
         public string InputName { get; }
-        
+
         /// <summary>
-        /// Whether the input is active
+        /// Whether the input is active.<br/>
+        /// On audio sources, contrary to it's name, will still return the state
         /// </summary>
         public bool VideoActive { get; }
 

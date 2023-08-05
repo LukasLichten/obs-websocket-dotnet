@@ -126,6 +126,7 @@ namespace OBSWebsocketDotNet
 
         /// <summary>
         /// Triggered when connected successfully to an obs-websocket server
+        /// Also triggered when ReIdentify is called
         /// </summary>
         public event EventHandler Connected;
 
@@ -140,6 +141,7 @@ namespace OBSWebsocketDotNet
         public event EventHandler<SceneItemSelectedEventArgs> SceneItemSelected;
 
         /// <summary>
+        /// Not actice by default, you have to use ReIdentify to subscribe to SceneItemTransformChanged additionally.
         /// A scene item transform has changed
         /// </summary>
         public event EventHandler<SceneItemTransformEventArgs> SceneItemTransformChanged;
@@ -235,12 +237,14 @@ namespace OBSWebsocketDotNet
         public event EventHandler<InputNameChangedEventArgs> InputNameChanged;
 
         /// <summary>
+        /// Not actice by default, you have to use ReIdentify to subscribe to InputActiveStateChanged additionally.
         /// An input's active state has changed.
         /// When an input is active, it means it's being shown by the program feed.
         /// </summary>
         public event EventHandler<InputActiveStateChangedEventArgs> InputActiveStateChanged;
 
         /// <summary>
+        /// Not actice by default, you have to use ReIdentify to subscribe to InputShowStateChanged additionally.
         /// An input's show state has changed.
         /// When an input is showing, it means it's being shown by the preview or a dialog.
         /// </summary>
@@ -266,7 +270,8 @@ namespace OBSWebsocketDotNet
         public event EventHandler<InputAudioMonitorTypeChangedEventArgs> InputAudioMonitorTypeChanged;
 
         /// <summary>
-        /// A high-volume event providing volume levels of all active inputs every 50 milliseconds.
+        /// Not actice by default, you have to use ReIdentify to subscribe to InputVolumeMeters additionally.
+        /// This returns the VolumeMeters for all active audio sources every 50ms.
         /// </summary>
         public event EventHandler<InputVolumeMetersEventArgs> InputVolumeMeters;
 
@@ -500,7 +505,7 @@ namespace OBSWebsocketDotNet
                     break;
 
                 case nameof(InputVolumeMeters):
-                    InputVolumeMeters?.Invoke(this, new InputVolumeMetersEventArgs(JsonConvert.DeserializeObject<List<JObject>>((string)body["inputs"])));
+                    InputVolumeMeters?.Invoke(this, new InputVolumeMetersEventArgs(body));
                     break;
 
                 case nameof(ReplayBufferSaved):
