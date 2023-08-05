@@ -18,7 +18,7 @@ namespace OBSWebsocketDotNet.Types
         MediaInputs = 1 << 8,
         Vendors = 1 << 9,
         Ui = 1 << 10,
-        All = 1 << 11 - 1,
+        All = (General | Config | Scenes | Inputs | Transitions | Filters | Outputs | SceneItems | MediaInputs | Vendors | Ui),
         InputVolumeMeters = 1 << 16,
         InputActiveStateChanged = 1 << 17,
         InputShowStateChanged = 1 << 18,
