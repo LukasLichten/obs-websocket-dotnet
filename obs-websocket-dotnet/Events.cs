@@ -343,7 +343,7 @@ namespace OBSWebsocketDotNet
                     break;
 
                 case nameof(SceneCollectionListChanged):
-                    SceneCollectionListChanged?.Invoke(this, new SceneCollectionListChangedEventArgs(JsonConvert.DeserializeObject<List<string>>((string)body["sceneCollections"])));
+                    SceneCollectionListChanged?.Invoke(this, new SceneCollectionListChangedEventArgs(JsonConvert.DeserializeObject<List<string>>(body["sceneCollections"].ToString())));
                     break;
 
                 case nameof(CurrentSceneTransitionChanged):
@@ -371,7 +371,7 @@ namespace OBSWebsocketDotNet
                     break;
 
                 case nameof(ProfileListChanged):
-                    ProfileListChanged?.Invoke(this, new ProfileListChangedEventArgs(JsonConvert.DeserializeObject<List<string>>((string)body["profiles"])));
+                    ProfileListChanged?.Invoke(this, new ProfileListChangedEventArgs(JsonConvert.DeserializeObject<List<string>>(body["profiles"].ToString())));
                     break;
 
                 case nameof(StreamStateChanged):
